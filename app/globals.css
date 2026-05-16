@@ -3,31 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --bg-primary: #080c14;        /* Deep navy-black background */
+  --bg-secondary: #0d1117;      /* Slightly lighter panels */
+  --bg-card: #0f1923;           /* Card/panel background */
+  --bg-hover: #141e2e;          /* Hover states */
+  --border-dim: #1a2535;        /* Subtle borders */
+  --border-glow: #00d4ff;       /* Cyan glow border (active/focus) */
+  --accent-cyan: #00d4ff;       /* Primary accent — cyan */
+  --accent-green: #00ff88;      /* Success / safe indicators */
+  --accent-red: #ff3d5a;        /* Danger / malicious indicators */
+  --accent-yellow: #ffcc00;     /* Warning / suspicious indicators */
+  --accent-purple: #7c5cfc;     /* Secondary accent */
+  --text-primary: #e8edf5;      /* Main text */
+  --text-secondary: #7a8ba0;    /* Muted/secondary text */
+  --text-mono: #00d4ff;         /* Monospace data text color */
+  --glow-cyan: 0 0 20px rgba(0, 212, 255, 0.3);   /* Cyan glow shadow */
+  --glow-green: 0 0 20px rgba(0, 255, 136, 0.3);  /* Green glow shadow */
+  --glow-red: 0 0 20px rgba(255, 61, 90, 0.3);    /* Red glow shadow */
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  background-color: var(--bg-primary);
+  background-image: radial-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--text-primary);
 }
