@@ -3,7 +3,7 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { LoadingScanner } from "@/components/ui/LoadingScanner";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { isValidIP } from "@/lib/validators";
 import { IPOverview } from "@/components/ip/IPOverview";
@@ -11,7 +11,7 @@ import { AbuseScore } from "@/components/ip/AbuseScore";
 import { ShodanPorts } from "@/components/ip/ShodanPorts";
 import { OTXPulses } from "@/components/ip/OTXPulses";
 
-export default function IPPage() {
+function IPPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialQuery = searchParams.get("q") || "";
@@ -112,5 +112,13 @@ export default function IPPage() {
         </div>
       )}
     </PageWrapper>
+  );
+}
+
+export default function IPPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-text-secondary">Loading...</div>}>
+      <IPPageContent />
+    </Suspense>
   );
 }

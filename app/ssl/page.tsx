@@ -3,13 +3,13 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { LoadingScanner } from "@/components/ui/LoadingScanner";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { CertCard } from "@/components/ssl/CertCard";
 import { CertHistory } from "@/components/ssl/CertHistory";
 import { isValidDomain } from "@/lib/validators";
 
-export default function SSLPage() {
+function SSLPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialQuery = searchParams.get("q") || "";
@@ -94,5 +94,13 @@ export default function SSLPage() {
           <EmptyState title="No Certificates Found" description="Could not find any certificates for this domain in crt.sh." />
       )}
     </PageWrapper>
+  );
+}
+
+export default function SSLPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-text-secondary">Loading...</div>}>
+      <SSLPageContent />
+    </Suspense>
   );
 }

@@ -3,14 +3,14 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { LoadingScanner } from "@/components/ui/LoadingScanner";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { isValidCVEId } from "@/lib/validators";
 import { CVECard } from "@/components/cve/CVECard";
 import { CVEDetail } from "@/components/cve/CVEDetail";
 import { cn } from "@/lib/utils";
 
-export default function CVEPage() {
+function CVEPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialQuery = searchParams.get("q") || "";
@@ -126,5 +126,13 @@ export default function CVEPage() {
          }} />
       )}
     </PageWrapper>
+  );
+}
+
+export default function CVEPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-text-secondary">Loading...</div>}>
+      <CVEPageContent />
+    </Suspense>
   );
 }

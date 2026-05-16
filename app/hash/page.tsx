@@ -3,7 +3,7 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { LoadingScanner } from "@/components/ui/LoadingScanner";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { useState, useEffect, useRef } from "react";
+import { Suspense, useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { detectInputType } from "@/lib/validators";
 import { HashMetadata } from "@/components/hash/HashMetadata";
@@ -11,7 +11,7 @@ import { HashVTResult } from "@/components/hash/HashVTResult";
 import { UploadCloud } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export default function HashPage() {
+function HashPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialQuery = searchParams.get("q") || "";
@@ -157,5 +157,13 @@ export default function HashPage() {
         </div>
       )}
     </PageWrapper>
+  );
+}
+
+export default function HashPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-text-secondary">Loading...</div>}>
+      <HashPageContent />
+    </Suspense>
   );
 }

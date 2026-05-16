@@ -41,7 +41,7 @@ export function AuthResults({ auth }: AuthResultsProps) {
             <div className="mb-4">{dkim.icon}</div>
             <h4 className="font-display font-bold text-xl mb-1">DKIM</h4>
             <span className="font-mono font-bold tracking-widest">{auth.dkim}</span>
-            <p className="text-xs mt-3 opacity-80 max-w-[200px]">DomainKeys Identified Mail ensures content hasn't been tampered with.</p>
+            <p className="text-xs mt-3 opacity-80 max-w-[200px]">DomainKeys Identified Mail ensures content hasn&apos;t been tampered with.</p>
          </div>
 
          {/* DMARC */}

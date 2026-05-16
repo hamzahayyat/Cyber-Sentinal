@@ -3,7 +3,7 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { LoadingScanner } from "@/components/ui/LoadingScanner";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { isValidDomain, isValidURL } from "@/lib/validators";
 import { VTResults } from "@/components/domain/VTResults";
@@ -13,7 +13,7 @@ import { OTXPulses } from "@/components/ip/OTXPulses"; // Reused since structure
 import { CopyButton } from "@/components/ui/CopyButton";
 import Link from "next/link";
 
-export default function DomainPage() {
+function DomainPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialQuery = searchParams.get("q") || "";
@@ -128,5 +128,13 @@ export default function DomainPage() {
         </div>
       )}
     </PageWrapper>
+  );
+}
+
+export default function DomainPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-text-secondary">Loading...</div>}>
+      <DomainPageContent />
+    </Suspense>
   );
 }
